@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
+const uuid = require('uuid/v1'); //uuid creates a unique random string for us 
 
 const bitcoin = new Blockchain(); //instance of our Blockchain constructor function
 
+const nodeAddress = uuid().split('-').join(''); //eliminate the dashes in the uuid, then rejoins it with a empty string
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -18,8 +20,24 @@ app.post('/transaction', function (req, res) {
     res.json({note: `Transaction will be added in block ${blockIndex}.`});
 })
 
+//mine a block
 app.get('/mine', function (req, res) {
+    const lastBlock = bitcoin.getLastBlock();
+    const previousBlockHash = lastBlock['hash']
+    const currentBlockData = {
+        transactions: bitcoin.pendingTransactions,
+        index: lastBlock['index']+1
+    }
+    const nonce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
+    const blockHash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
 
+    bitcoin.createNewTransaction(12.5, "00", nodeAddress);
+
+    const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
+    res.json({
+        note: "New block mined successfully",
+        block: newBlock
+    })
 })
 
 
