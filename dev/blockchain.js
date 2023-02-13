@@ -38,14 +38,21 @@ class Blockchain {
 }
 
 Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
-    console.log("nonce:", nonce);
     const dataAsString = previousBlockHash + (nonce.toString()) + JSON.stringify(currentBlockData);
-    console.log("dataAsString:", dataAsString)
     const hash = sha256(dataAsString);
-    console.log("hash:", hash);
     return hash;
 }
 
+Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData){
+    let nonce = 0;
+    let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+    while(hash.substring(0,4) !== '0000'){
+        nonce++;
+        hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+        console.log(hash);
+    }
+    return nonce;
+}
 
 
-    module.exports = Blockchain;  //export the Blockchain constructor function
+module.exports = Blockchain;  //export the Blockchain constructor function

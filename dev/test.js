@@ -29,16 +29,19 @@ const currentBlockData = [
     },
    {
         amount: 30,
-        sender: 'ALEX90SDNFGH56GTHY',
-        recipient: 'JENNY90SDNFGH56GTHY',
+        sender: 'ADAN0SDNFGH56GTHY',
+        recipient: 'JESS90SDNFGH56GTHY',
    },
    {
         amount: 200,
-        sender: 'ALEX90SDNFGH56GTHY',
-        recipient: 'JENNY90SDNFGH56GTHY',
+        sender: 'JONATHAN90SDNFGH56GTHY',
+        recipient: 'DANIELLE90SDNFGH56GTHY',
    }
 ];
-const nonce = 100;
+//const nonce = 100;
 
-console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
-bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
+//console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
+//bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
+
+console.log(bitcoin.proofOfWork(previousBlockHash,currentBlockData, 79416));
+
