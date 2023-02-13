@@ -1,3 +1,5 @@
+const sha256 = require('sha256');
+
 //constructor function
 class Blockchain {
     constructor() {
@@ -35,6 +37,14 @@ class Blockchain {
     }
 }
 
+Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
+    console.log("nonce:", nonce);
+    const dataAsString = previousBlockHash + (nonce.toString()) + JSON.stringify(currentBlockData);
+    console.log("dataAsString:", dataAsString)
+    const hash = sha256(dataAsString);
+    console.log("hash:", hash);
+    return hash;
+}
 
 
 
