@@ -1,6 +1,8 @@
 const Blockchain = require("./blockchain");
 const bitcoin = new Blockchain();
 
+console.log(bitcoin);
+
 // bitcoin.createNewBlock(892348, 'A90SDNFGH56GTHY', 'OIADNFGH56GTHY');
 // //createNewBlock() takes in 3 parameters (nonce, previousBlockHash, hash)
 
@@ -20,28 +22,28 @@ const bitcoin = new Blockchain();
 
 // console.log(bitcoin);
 //_____________________________________________________________________________________________
-const previousBlockHash = 'A90SDNFGH56GTHY';
-const currentBlockData = [
-    {
-        amount: 10,
-        sender: 'ALEX90SDNFGH56GTHY',
-        recipient: 'JENNY90SDNFGH56GTHY'
-    },
-   {
-        amount: 30,
-        sender: 'ADAN0SDNFGH56GTHY',
-        recipient: 'JESS90SDNFGH56GTHY',
-   },
-   {
-        amount: 200,
-        sender: 'JONATHAN90SDNFGH56GTHY',
-        recipient: 'DANIELLE90SDNFGH56GTHY',
-   }
-];
-//const nonce = 100;
+// const previousBlockHash = 'A90SDNFGH56GTHY';
+// const currentBlockData = [
+//     {
+//         amount: 10,
+//         sender: 'ALEX90SDNFGH56GTHY',
+//         recipient: 'JENNY90SDNFGH56GTHY'
+//     },
+//    {
+//         amount: 30,
+//         sender: 'ADAN0SDNFGH56GTHY',
+//         recipient: 'JESS90SDNFGH56GTHY',
+//    },
+//    {
+//         amount: 200,
+//         sender: 'JONATHAN90SDNFGH56GTHY',
+//         recipient: 'DANIELLE90SDNFGH56GTHY',
+//    }
+// ];
+// //const nonce = 100;
 
-//console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
-//bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
+// //console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
+// //bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
 
-console.log(bitcoin.proofOfWork(previousBlockHash,currentBlockData, 79416));
+// console.log(bitcoin.proofOfWork(previousBlockHash,currentBlockData, 79416));
 
