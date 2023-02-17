@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
-const uuid = require('uuid/v1'); //uuid creates a unique random string for us 
+const { v1: uuid } = require('uuid'); //uuid creates a unique random string for us 
 
 const bitcoin = new Blockchain(); //instance of our Blockchain constructor function
 
+console.log("uuid:", uuid);
 const nodeAddress = uuid().split('-').join(''); //eliminate the dashes in the uuid, then rejoins it with a empty string
 
 app.use(bodyParser.json());

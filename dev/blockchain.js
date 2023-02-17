@@ -1,3 +1,4 @@
+//this is a network node of the entire blockchain.
 const sha256 = require('sha256');
 
 //constructor function
