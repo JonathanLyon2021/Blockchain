@@ -1,11 +1,15 @@
 //this is a network node of the entire blockchain.
 const sha256 = require('sha256');
+const currentNodeUrl = process.argv[3]; //the url of the current node
 
 //constructor function
 class Blockchain {
-    constructor() {
+    constructor() { //why do we not need to pass the parameters in here???
         this.chain = [];
         this.pendingTransactions = [];
+
+        this.currentNodeUrl = currentNodeUrl;
+        this.networkNodes = [];
 
         this.createNewBlock(100, '0', '0'); //genesis block
     }
