@@ -4,7 +4,7 @@ const currentNodeUrl = process.argv[3]; //the url of the current node
 
 //constructor function
 class Blockchain {
-    constructor() { //why do we not need to pass the parameters in here???
+    constructor() { //constructor function
         this.chain = [];
         this.pendingTransactions = [];
 

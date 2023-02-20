@@ -13,6 +13,10 @@ const nodeAddress = uuid().split('-').join(''); //eliminate the dashes in the uu
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.get('/', function (res,req){
+    //table of contents of route endpoints.
+})
+
 app.get('/blockchain', function (req, res) {
     res.send(bitcoin)
 })
@@ -43,13 +47,14 @@ app.get('/mine', function (req, res) {
 })
 
 // register a node and broadcast it in the network
-app.post('register-and-broadcast-node', function(req, res)){
+app.post('register-and-broadcast-node', function(req, res){
     const newNodeUrl = req.body.newNodeUrl;
-}
+    if(bitcoin.networkNodes.indexOf(newNodeUrl) == -1) bitcoin.networkNodes.push(newNodeUrl);
+})
 
 //register a node with the network
 app.post('/register-node', function(req, res) {
-    
+
 })
 
 //register multiple nodes at once
