@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
 const { v1: uuid } = require('uuid'); //uuid creates a unique random string for us 
 const port = process.argv[2]; //port number
+const rp = require('request-promise'); //request-promise is a library that allows us to make http requests to other nodes in the network. (npm install request-promise
 
 const bitcoin = new Blockchain(); //instance of our Blockchain constructor function
 
@@ -14,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', function (res,req){
-    //table of contents of route endpoints.
+    //table of contents of route endpoints. 
 })
 
 app.get('/blockchain', function (req, res) {
@@ -50,7 +51,34 @@ app.get('/mine', function (req, res) {
 app.post('register-and-broadcast-node', function(req, res){
     const newNodeUrl = req.body.newNodeUrl;
     if(bitcoin.networkNodes.indexOf(newNodeUrl) == -1) bitcoin.networkNodes.push(newNodeUrl);
-})
+
+        // '/register-node'
+    const regNodesPromises = [];
+    bitcoin.networkNodes.forEach(networkNodeUrl => {
+        const requestOptions = {
+            uri: networkNodeUrl + '/register-node', //options
+            method: 'POST',
+            body: { newNodeUrl: newNodeUrl },  //data we pass along w/ this request
+            json: true  //converts the data to json
+        };
+        regNodePromises.push(rp(requestOptions)); //pushes the request inton the array
+        
+    });
+    Promise.all(regNodesPromises)
+    .then(data => {
+        //use the data
+        const bulkRegisterOptions = {
+            uri: newNodeUrl + '/register-nodes-bulk',
+            method: 'POST',
+            body: {allNetworkNodes:[...bitcoin.networkNodes, bitcoin.currentNodeUrl]},
+            json: true
+        };
+        return rp(bulkRegisterOptions);
+    })
+    .then(data => {
+        res.json({note: 'New node registered with network successfully.'})
+    })
+});
 
 //register a node with the network
 app.post('/register-node', function(req, res) {
