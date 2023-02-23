@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', function (res,req){
     //table of contents of route endpoints. 
+    res.json({note: "Welcome to the Blockchain API, Here are the table of Contents of the endpoints: /blockchain, /transaction, /mine, /register-and-broadcast-node, /register-node, /register-nodes-bulk"});
 })
 
 app.get('/blockchain', function (req, res) {
