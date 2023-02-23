@@ -49,20 +49,25 @@ app.get('/mine', function (req, res) {
 })
 
 // register a node and broadcast it in the network
-app.post('register-and-broadcast-node', function(req, res){
+app.post('/register-and-broadcast-node', function(req, res){
+    //registers the new node with itself and then broadcasts it to the entire network
     const newNodeUrl = req.body.newNodeUrl;
     if(bitcoin.networkNodes.indexOf(newNodeUrl) == -1) bitcoin.networkNodes.push(newNodeUrl);
+    //if the new node url is not already in the networkNodes array, then push it in
 
-        // '/register-node'
-    const regNodePromises = [];
+        //here we are cycling thru all the nodes on the network and making a req to each 1
+        //we are registering the new nodes with all the other nodes on the network
+    const regNodePromises = []; //this array will hold all the promises/requests
     bitcoin.networkNodes.forEach(networkNodeUrl => {
+        //for each network node in the array, we want to make a request to the register-node endpoint
+        // '/register-node' //these are the options we pass along with the request
         const requestOptions = {
             uri: networkNodeUrl + '/register-node', //options
             method: 'POST',
             body: { newNodeUrl: newNodeUrl },  //data we pass along w/ this request
             json: true  //converts the data to json
         };
-        regNodePromises.push(rp(requestOptions)); //pushes the request inton the array
+        regNodePromises.push(rp(requestOptions)); //pushes the request into the array
         
     });
     Promise.all(regNodePromises)
