@@ -28,21 +28,30 @@ class Blockchain {
 
         return newBlock;
     }
+
     getLastBlock() {
         return this.chain[this.chain.length - 1];
     }
+
+    //creates a new txn and pushes it to the node
     createNewTransaction(amount, sender, recipient) {
         const newTransaction = {
             amount: amount,
             sender: sender,
             recipient: recipient,
+            transactionId: uuid().split('-').join('')
         };
-
-        this.pendingTransactions.push(newTransaction); //push the newTransaction object to the pendingTransactions array
-
-        return this.getLastBlock()['index'] + 1; //this.getLastBlock returns the object of the last block
+        return newTransaction;
     }
 }
+
+Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObj){
+    this.pendingTransactions.push(transactionObj);
+    return this.getLastBlock()['index'] + 1; // returns index of the block that the transaction will be added to
+}
+        //this.pendingTransactions.push(newTransaction); //push the newTransaction object to the pendingTransactions array
+        //return this.getLastBlock()['index'] + 1; //this.getLastBlock returns the object of the last block
+
 
 Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
     const dataAsString = previousBlockHash + (nonce.toString()) + JSON.stringify(currentBlockData);
