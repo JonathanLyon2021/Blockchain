@@ -41,6 +41,7 @@ class Blockchain {
             recipient: recipient,
             transactionId: uuid().split('-').join('')
         };
+        console.log("newTransaction:", newTransaction);
         return newTransaction;
     }
 }
