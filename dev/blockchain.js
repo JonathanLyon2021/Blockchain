@@ -1,6 +1,8 @@
 //this is a network node of the entire blockchain.
 const sha256 = require('sha256');
 const currentNodeUrl = process.argv[3]; //the url of the current node
+const { v1: uuid } = require('uuid'); //uuid creates a unique random string for us 
+
 
 //constructor function
 class Blockchain {
@@ -30,11 +32,11 @@ class Blockchain {
     }
 
     getLastBlock() {
-        return this.chain[this.chain.length - 1];
+        return this.chain[this.chain.length - 1]; 
     }
 
     //creates a new txn and pushes it to the node
-    createNewTransaction(amount, sender, recipient) {
+    createNewTransaction(amount, sender, recipient ){
         const newTransaction = {
             amount: amount,
             sender: sender,
